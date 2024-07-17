@@ -6,8 +6,9 @@ import { useState } from "react";
 const ClientList = () => {
     
     const dispatch = useDispatch();
+
     const clientList = useSelector(state => state);
-    const [editedClient,setEditedClient] = useState({id:'',name:'',age:''})
+    const [editedClient,setEditedClient] = useState({id:'',name:'',age:''});
 
 
     const handleAddClient = (event) => {
@@ -18,54 +19,60 @@ const ClientList = () => {
             id: generateNumber(),
             name: event.target.clientName.value,
             age: event.target.clientAge.value
-        }
+        };
 
         dispatch(addClient(newClient));
 
         event.target.clientName.value = '';
         event.target.clientAge.value = '';
-    }
+
+    };
 
     const handleRemoveClient = (id) => {
-        dispatch(removeClient({id}))
-    }
+
+        dispatch(removeClient({id}));
+
+    };
 
 
     const handleEditedClient = (event) => {
-        setEditedClient({...editedClient, [event.target.name]:event.target.value})
-    }
+
+        setEditedClient({...editedClient, [event.target.name]:event.target.value});
+
+    };
+
     const editClient = (id) => {
-        let clientObject = clientList.find(c => c.id === id)
-        setEditedClient(clientObject)
-    }
+
+        let clientObject = clientList.find(c => c.id === id);
+        setEditedClient(clientObject);
+
+    };
+
     const saveEditedClient = () => {
-        dispatch(saveClient(editedClient))
-    }
 
+        dispatch(saveClient(editedClient));
 
-
-
+    };
 
 
     return (
         <div>
-            <h4>Add new client</h4>
+            <h4>Add new client:</h4>
             <form onSubmit={handleAddClient}>
-                <label>Name:</label>
+                <label>Name: </label>
                 <input name='clientName' />
-                <label>Age:</label>
+                <label>Age: </label>
                 <input name='clientAge' />
                 <button type='submit'>add</button>
             </form>
             <div>
                 <h4>Edit client:</h4>
-            <label>Name:</label>
-            <input value={editedClient.name} name="name" onChange={handleEditedClient} />
-            <label>Age:</label>
-            <input value={editedClient.age} name="age" onChange={handleEditedClient} />
-            <button onClick={saveEditedClient}>save</button>
-            
-        </div>
+                <label>Name: </label>
+                <input value={editedClient.name} name="name" onChange={handleEditedClient} />
+                <label>Age: </label>
+                <input value={editedClient.age} name="age" onChange={handleEditedClient} />
+                <button onClick={saveEditedClient}>save</button>
+            </div>
             
             <table>
                 <thead>
@@ -90,8 +97,6 @@ const ClientList = () => {
                     }
                 </tbody>
             </table>
-
-
         </div>
     )
 }
